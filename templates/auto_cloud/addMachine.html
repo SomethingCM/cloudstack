@@ -1,0 +1,67 @@
+﻿{% extends "auto_cloud/common/base.side.html" %}
+
+{% block title %}
+自动化运维系统
+{% endblock %}
+
+
+{% block rcontent %}
+	<div class="col-md-5 col-md-offset-1">
+		<form class="form-horizontal" action="{{ postUrl }}" method='POST'>
+				<div class="control-group">
+					 <label class="control-label" >虚拟机名</label>
+					<div class="controls" >
+						<input name="name" type="input"class="form-control" ></input>
+					</div>
+				
+				</div>
+				<div class="control-group">
+					 <label class="control-label" >硬件配置</label>
+					<div class="controls">
+						<select name="serviceofferings" class="form-control">
+						{% for item in serviceofferings %}
+						  <option value="{{item.serviceofferingid}}">{{item.displaytext}}</option>
+						  {% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					 <label class="control-label" >网络配置</label>
+					<div class="controls">
+						<select name="networks" class="form-control">
+						{% for item in networks %}
+						  <option value="{{item.networkid}}">{{item.displaytext}}</option>
+						  {% endfor %}
+						</select>
+					</div>
+				</div>				
+				<div class="control-group">
+					 <label class="control-label" >虚拟机模板</label>
+					<div class="controls">
+						<select name="templates" class="form-control">
+						{% for item in templates %}
+						  <option value="{{item.templateid}}">{{item.ostypename}}---{{item.displaytext}}</option>
+						  {% endfor %}
+						</select>
+					</div>
+				</div>
+				{% if types %}
+				<div class="control-group">
+					 <label class="control-label" >关联性组</label>
+					<div class="controls">
+						<select name="type" class="form-control">
+						{% for item in types %}
+						  <option value="{{item.id}}">{{item.name}}---{{item.description}}</option>
+						  {% endfor %}
+						</select>
+					</div>
+				</div>
+				{% endif %}
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="pull-right btn btn-primary">确认</button>
+					</div>
+				</div>
+		</form>
+	</div>
+{%endblock%}

@@ -1,0 +1,62 @@
+﻿
+{% extends "auto_cloud/common/base.side.html" %}
+   <!-- Role List -->
+{% block title %}
+自动化运维系统
+{% endblock %}
+
+
+{% block rcontent %}
+  
+               	<table class="table table-hover table-striped  table-bordered table-condensed">
+					<tr>
+						<th>Machine name</th>
+						<th>DataCenter</th>
+						<th>Templatename</th>
+						<th>Cpus</th>
+						<th>MAX mem</th>
+						<th>Status</th>
+						<th>IP</th>
+						<th>user</th>
+						<th>操作</th>
+			
+					</tr>
+		
+					{% for res in machines %}
+					<tr style="font-size: 13px;">
+						<td>{{res.machinename}}</td>
+						<td>{{res.datecenter.name}}</td>
+						<td>{{res.templatename}}</td>
+						<td>{{res.cpus}}</td>
+						<td>{{res.maxmem}}</td>
+						<td>{{res.status}}</td>
+						<td>{{res.ip}}</td>
+						<td>{{res.user.username}}</td>
+						<td class="host_buttom">
+                        <a class="btn btn-warning btn-xs" href={% url "Stopurl" res.id %} onclick="return confirm('是否确认开机？')">关机</a>
+                        <a class="btn btn-info btn-xs" href={% url "Starturl" res.id %} onclick="return confirm('是否确认开机？')">开机</a>
+                        <a class="btn btn-danger btn-xs" href={% url "Restarturl" res.id %} onclick="return confirm('是否确认重启？')">重启</a>
+                      <a  href={% url "Deleteurl" res.id %}  onclick="return confirm('是否确认删除？')"> &nbsp<span class="glyphicon glyphicon-trash btn-xs"></span></a>
+                    </td>
+							{{err}}
+					</tr>
+					{% endfor %}
+				
+				</table>
+				<table class="table table-striped">
+					<tr style="font-size: 13px;">
+						<td><a href={% url "temrescloudurl" %}><button type="button" class="btn btn-default">刷新模板</button></a></td>
+						<td><a href={% url "refreshcloudurl" %}><button type="button" class="btn btn-default">刷新机器</button></a></td>
+						
+					</tr>
+
+				</table>
+     
+
+
+{% endblock %}
+				<!-- 							<td class="host_buttom">
+							<a class="btn btn-info btn-xs"  href="/autoCloud/cloud/start/{{res.id}}/ " >开机</a>
+
+						</td>		<a class="btn btn-warning btn-xs" href={% url "Stopurl" res.id %} >关机</a>
+							<a class="btn btn-danger btn-xs" href={% url "Restarturl" res.id %} >重启</a> -->
